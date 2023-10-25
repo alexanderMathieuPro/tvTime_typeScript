@@ -19,7 +19,6 @@ const Home = () => {
     return <Navigate to={"/login"} replace />;
   }
   const data = useLoaderData() as { data: FilmAtributes[] };
-  console.log(data.data);
 
   return (
     <div className="h-full bg-gradient-main">
