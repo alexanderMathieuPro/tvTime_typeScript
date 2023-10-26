@@ -1,11 +1,5 @@
 import { Form, redirect, useLoaderData } from "react-router-dom";
-
-interface Categories {
-    id: number, 
-    attributes: {
-        nom: string
-    }
-}
+import { Categories } from "../interfaces/CreateFilmInterface";
 
 export const CreateFilmAction = async ({request}: {request: Request}) => {
     const formData = await request.formData();
