@@ -6,7 +6,7 @@ export const CreateFilmAction = async ({request}: {request: Request}) => {
     const formUpload = new FormData();
 
     const categories = formData.getAll("categories[]");
-    formUpload.append("files", formData.get("cover"));
+    formUpload.append("files", formData.get("cover") as File);
 
     const uploadFile = await fetch("http://localhost:1337/api/upload", {
         method: "POST",
@@ -26,7 +26,7 @@ export const CreateFilmAction = async ({request}: {request: Request}) => {
             data: {
                 titre: formData.get("titre"),
                 description: formData.get("description"),
-                duree: parseInt(formData.get("duree")),
+                duree: formData.get("duree"),
                 dateSortie: formData.get("dateSortie"),
                 cover: uploadFile[0].id,
                 categories: categories
@@ -45,18 +45,18 @@ const CreateFilm = () => {
             <Form method="post" className="flex flex-col w-[400px] space-y-4 border-4 rounded-2xl p-4" encType="multipart/form-data">
                 <div className="flex flex-col">
                     <label htmlFor="title" className="text-white text-center">Titre</label>
-                    <input type="text" name="titre" placeholder="Titre" className="bg-transparent border-b-2 focus:outline-none text-white font-bold placeholder:text-gray-300 placeholder:font-normal"/>
+                    <input required type="text" name="titre" placeholder="Titre" className="bg-transparent border-b-2 focus:outline-none text-white font-bold placeholder:text-gray-300 placeholder:font-normal"/>
                 </div>
                 <div className="flex flex-col">
                     <label htmlFor="title" className="text-white text-center">Description</label>
-                    <input type="text" name="description" placeholder="Description" className="bg-transparent border-b-2 focus:outline-none text-white font-bold placeholder:text-gray-300 placeholder:font-normal"/>
+                    <input required type="text" name="description" placeholder="Description" className="bg-transparent border-b-2 focus:outline-none text-white font-bold placeholder:text-gray-300 placeholder:font-normal"/>
                 </div>
                 <div className="flex flex-col">
                     <label htmlFor="title" className="text-white text-center">Durée (en minutes)</label>
-                    <input type="number" name="duree" placeholder="durée" className="bg-transparent border-b-2 focus:outline-none text-white font-bold placeholder:text-gray-300 placeholder:font-normal"/>
+                    <input required type="number" name="duree" placeholder="durée" className="bg-transparent border-b-2 focus:outline-none text-white font-bold placeholder:text-gray-300 placeholder:font-normal"/>
                 </div>
-                <input type="date" name="dateSortie" />
-                <input type="file" name="cover"/>
+                <input required type="date" name="dateSortie" />
+                <input required type="file" name="cover"/>
                 <label>Categories</label>
                 {categories.data.map((category) => (
                     <div key={category.id}>

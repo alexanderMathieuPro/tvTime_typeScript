@@ -7,6 +7,7 @@ import FilmDetail from './views/FilmDetails'
 import { FilmDetailLoader } from './loaders/FilmDetailLoader'
 import CreateFilm from './views/CreateFilm'
 import { CreateFilmLoader } from './loaders/CreateFilmLoader'
+import { CreateFilmAction } from './views/CreateFilm'
 
 const routes = createBrowserRouter([
   {
@@ -27,7 +28,8 @@ const routes = createBrowserRouter([
   {
     path: '/film/create',
     element: <CreateFilm />,
-    loader: CreateFilmLoader
+    loader: CreateFilmLoader,
+    action: CreateFilmAction
   }
 ])
 function App() {
