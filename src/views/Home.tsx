@@ -1,20 +1,7 @@
 import { Navigate, useLoaderData, Link } from "react-router-dom";
+import { FilmAtributes } from "../interfaces/HomeInterface";
 import Card from "../components/Card";
 const Home = () => {
-  interface FilmAtributes {
-    attributes: {
-      titre: string;
-      dateSortie: string;
-      cover: {
-        data: {
-          attributes: {
-            url: string;
-          };
-        }
-      };
-    };
-    id: number;
-  }
   if (localStorage.getItem("token") == null) {
     return <Navigate to={"/login"} replace />;
   }

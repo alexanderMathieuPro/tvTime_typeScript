@@ -1,8 +1,8 @@
-export interface FilmDetailInterface {
+export interface FilmData {
+    data: {
         attributes: {
             titre: string;
             dateSortie: string;
-            description: string;
             cover: {
                 data: {
                     attributes: {
@@ -12,4 +12,9 @@ export interface FilmDetailInterface {
             };
         };
         id: number;
+    };
+}
+
+export interface Param {
+    id: string;
 }

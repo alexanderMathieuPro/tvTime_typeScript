@@ -1,6 +1,7 @@
 import { Link, useLoaderData } from "react-router-dom";
+import { FilmDetailInterface } from "../interfaces/FilmDetailInterface";
 const FilmDetail = () => {
-  const film = useLoaderData();
+  const film = useLoaderData() as { data: FilmDetailInterface };
 
   const handleClick = () => {
     fetch(`http://localhost:1337/api/films/${film.data.id}`, {
@@ -28,12 +29,12 @@ const FilmDetail = () => {
       </div>
       <div className="flex justify-end my-[-30px] mx-[80px] space-x-10">
         <Link to={`/film/${film.data.id}/edit`} className="group bg-sky-500 rounded-full p-4 flex justify-center items-center hover:shadow-md hover:shadow-sky-400 transition-transform transform hover:scale-105 duration-300">
-          <span class="material-symbols-outlined text-[40px] text-white">
+          <span className="material-symbols-outlined text-[40px] text-white">
             edit
           </span>
         </Link>
         <button onClick={() => handleClick()} className="bg-red-500 rounded-full p-4 flex justify-center items-center hover:shadow-md hover:shadow-red-400 transition-transform transform hover:scale-105 duration-300">
-          <span class="material-symbols-outlined text-[40px] text-white">
+          <span className="material-symbols-outlined text-[40px] text-white">
             Delete
           </span>
         </button>
