@@ -1,4 +1,4 @@
-import { FilmData } from '../interfaces/HomeLoaderInterface'
+import { FilmData } from '../interfaces/loadersIterfaces/HomeLoaderInterface'
 export const HomeLoader = async (): Promise<FilmData> => {
     const data : FilmData = await fetch('http://localhost:1337/api/films?populate=*&sort=createdAt:desc', {
         method: 'GET',

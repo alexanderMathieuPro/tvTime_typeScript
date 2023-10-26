@@ -1,4 +1,4 @@
-import { CreateFilmCategories } from "../interfaces/CreateFilmCategoriesLoader";
+import { CreateFilmCategories } from "../interfaces/loadersIterfaces/CreateFilmCategoriesLoader";
 export const CreateFilmLoader = async (): Promise<CreateFilmCategories> => {
     const data: CreateFilmCategories = await fetch("http://localhost:1337/api/categories", {
       method: "GET", 

@@ -1,5 +1,5 @@
 import { LoaderFunction } from "react-router-dom";
-import { FilmData, Param } from "../interfaces/FilmDetailInterfaceLoader";
+import { FilmData, Param } from "../interfaces/loadersIterfaces/FilmDetailInterfaceLoader";
 
 export const FilmDetailLoader: LoaderFunction<Param> = async ({params}): Promise<FilmData> => {
     const filmId = params.id;
