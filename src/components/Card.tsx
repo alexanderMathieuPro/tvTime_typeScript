@@ -1,11 +1,5 @@
 import { Link } from "react-router-dom";
-
-interface FilmAtributes {
-    titre: string;
-    dateSortie: string;
-    cover: string;
-    id: number;
-}
+import { FilmAtributes } from "../interfaces/CardInterface";
 
 const Card: React.FC<FilmAtributes> = ({ titre, dateSortie, cover, id }) => {
   return (
