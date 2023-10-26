@@ -8,6 +8,8 @@ import { FilmDetailLoader } from './loaders/FilmDetailLoader'
 import CreateFilm from './views/CreateFilm'
 import { CreateFilmLoader } from './loaders/CreateFilmLoader'
 import { CreateFilmAction } from './views/CreateFilm'
+import EditFilm from './views/EditFilm'
+import { EditFilmLoader } from './loaders/EditFilmLoader'
 
 const routes = createBrowserRouter([
   {
@@ -24,6 +26,11 @@ const routes = createBrowserRouter([
     path: '/film/:id',
     element: <FilmDetail />,
     loader: FilmDetailLoader
+  },
+  {
+    path: '/film/:id/edit',
+    element: <EditFilm />,
+    loader: EditFilmLoader
   },
   {
     path: '/film/create',
