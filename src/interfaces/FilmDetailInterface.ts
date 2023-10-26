@@ -3,6 +3,9 @@ export interface FilmDetailInterface {
             titre: string;
             dateSortie: string;
             description: string;
+            images: {
+                data: FilmDetailImages[];
+            }
             cover: {
                 data: {
                     attributes: {
@@ -12,4 +15,11 @@ export interface FilmDetailInterface {
             };
         };
         id: number;
+}
+
+interface FilmDetailImages {
+    id: number;
+    attributes: {
+        url: string;
+    }
 }

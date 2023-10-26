@@ -3,8 +3,9 @@ import { FilmDetailInterface } from "../interfaces/FilmDetailInterface";
 const FilmDetail = () => {
   const film = useLoaderData() as { data: FilmDetailInterface };
 
-  const handleClick = () => {
-    fetch(`http://localhost:1337/api/films/${film.data.id}`, {
+  const handleClick = (filmId: number) => {
+    console.log(filmId);
+    fetch(`http://localhost:1337/api/films/${filmId}`, {
       method: "DELETE",
       headers: {
         "Authorization": "Bearer " + localStorage.getItem("token"),
@@ -14,7 +15,7 @@ const FilmDetail = () => {
   }
 
   return (
-    <div className="h-screen bg-gradient-main">
+    <div className="h-full bg-gradient-main pb-10">
       <div className="overflow-hidden flex bg-white p-4 rounded-b-[50px] shadow-2xl">
         <img
           src={`http://localhost:1337${film.data.attributes.cover.data.attributes.url}`}
@@ -33,11 +34,25 @@ const FilmDetail = () => {
             edit
           </span>
         </Link>
-        <button onClick={() => handleClick()} className="bg-red-500 rounded-full p-4 flex justify-center items-center hover:shadow-md hover:shadow-red-400 transition-transform transform hover:scale-105 duration-300">
+        <button onClick={() => handleClick(film.data.id)} className="bg-red-500 rounded-full p-4 flex justify-center items-center hover:shadow-md hover:shadow-red-400 transition-transform transform hover:scale-105 duration-300">
           <span className="material-symbols-outlined text-[40px] text-white">
             Delete
           </span>
         </button>
+      </div>
+      <div className="pt-10">
+      <p className="font-bold text-white pb-4 text-xl pl-4">Médias</p>
+      <div className="flex flex-wrap items-center">
+      {
+        film.data.attributes.images.data?.map((image) => (
+          <img
+            key={image.id}
+            src={`http://localhost:1337${image.attributes.url}`}
+            className="h-64 rounded-[50px] border-4 border-sky-500"
+          />
+        ))
+      }
+      </div>
       </div>
     </div>
   );
