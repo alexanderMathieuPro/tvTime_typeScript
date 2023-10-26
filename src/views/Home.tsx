@@ -9,7 +9,7 @@ const Home = () => {
 
   return (
     <div className="h-full bg-gradient-main">
-      <Link className="text-white" to={"/films/create"}>
+      <Link className="text-white" to={"/film/create"}>
         Creer un film
       </Link>
       <div className="grid lg:grid-cols-4 justify-items-center md:grid-cols-2 sm:grid-cols-1 gap-y-4">
