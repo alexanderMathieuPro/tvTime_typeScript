@@ -1,17 +1,6 @@
-import { Form, redirect, useActionData } from "react-router-dom";
+import { Form, redirect } from "react-router-dom";
 import "../css/login.css"
-
-interface UserInput {
-    id:        number;
-    jwt:       string;
-    username:  string;
-    email:     string;
-    provider:  string;
-    confirmed: boolean;
-    blocked:   boolean;
-    createdAt: Date;
-    updatedAt: Date;
-  }
+import { UserInput } from "../interfaces/LoginInterface";
 
 export async function LoginAction ({ request }: {request: Request}) {
   const formData = await request.formData();
