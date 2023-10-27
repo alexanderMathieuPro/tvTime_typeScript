@@ -9,5 +9,12 @@ export const EditFilmLoader: LoaderFunction<Param> = async ({params}) => {
       "Authorization": "Bearer " + localStorage.getItem("token")
     }
   }).then((res) => res.json());
-  return film;
+
+  const categories = await fetch("http://localhost:1337/api/categories", {
+    method: "GET", 
+    headers: {
+      "Authorization": "Bearer " + localStorage.getItem("token")
+    }
+  }).then((res) => res.json());
+  return {film, categories};
 }

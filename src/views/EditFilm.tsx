@@ -1,16 +1,38 @@
 import { Form, useLoaderData } from "react-router-dom";
 interface FilmDatas {
-  attributes: {
-    titre: string;
-    description: string;
-    duree: number;
-    dateSortie: string;
-    cover: string;
-  };
+  data: {
+    attributes: {
+      titre: string;
+      description: string;
+      duree: number;
+      dateSortie: string;
+      cover: string;
+    };
+  }
+}
+
+interface Categories {
+  data: CategoriesDatas[]
+}
+
+interface CategoriesDatas {
+  data: {
+    attributes: {
+      nom: string;
+      id: number
+    }
+  }
+}
+
+export const EditFilmAction = async ({ request }: { request: Request }) => {
+  const formData = await request.formData();
+  const formUpload = new FormData();
+
 }
 
 const EditFilm = () => {
-  const film = useLoaderData() as { data: FilmDatas };
+  const film = useLoaderData() as { film: FilmDatas, categories: Categories };
+  console.log(film);
   return (
     <div className="flex justify-center items-center h-full bg-sky-500 pt-4 pb-4">
       <Form
@@ -24,7 +46,7 @@ const EditFilm = () => {
           </label>
           <input
             type="text"
-            defaultValue={film.data.attributes.titre}
+            defaultValue={film.film.data.attributes.titre}
             name="titre"
             placeholder="Titre"
             className="bg-transparent border-b-2 focus:outline-none text-white font-bold placeholder:text-gray-300 placeholder:font-normal"
@@ -35,7 +57,7 @@ const EditFilm = () => {
             Description
           </label>
           <textarea
-            defaultValue={film.data.attributes.description}
+            defaultValue={film.film.data.attributes.description}
             name="description"
             placeholder="Description"
             className="bg-transparent border-b-2 focus:outline-none text-white font-bold placeholder:text-gray-300 placeholder:font-normal h-[200px]"
@@ -47,7 +69,7 @@ const EditFilm = () => {
           </label>
           <input
             type="number"
-            defaultValue={film.data.attributes.duree}
+            defaultValue={film.film.data.attributes.duree}
             name="duree"
             placeholder="durée"
             className="bg-transparent border-b-2 focus:outline-none text-white font-bold placeholder:text-gray-300 placeholder:font-normal"
@@ -56,16 +78,18 @@ const EditFilm = () => {
         <input
           type="date"
           name="dateSortie"
-          defaultValue={film.data.attributes.dateSortie}
+          defaultValue={film.film.data.attributes.dateSortie}
         />
         <input type="file" name="cover" className="file:bg-transparent " />
         <label>Categories</label>
-        {/* {categories.data.map((category) => (
-                    <div key={category.id}>
-                        <input type="checkbox" name="categories[]" value={category.id} />
-                        <label htmlFor="categories">{category.attributes.nom}</label>
+        <div className="flex flex-wrap space-x-4">
+        {film.categories.data.map((category) => (
+                    <div key={category.data.attributes.id}>
+                        <input type="checkbox" name="categories[]" value={category.data.attributes.id} />
+                        <label htmlFor="categories">{category.data.attributes.nom}</label>
                     </div>
-                ))} */}
+                ))}
+        </div>
         <input type="submit" />
       </Form>
     </div>
