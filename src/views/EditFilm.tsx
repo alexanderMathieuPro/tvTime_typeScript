@@ -1,6 +1,7 @@
 import { Form, useLoaderData } from "react-router-dom";
 interface FilmDatas {
   data: {
+    id: number;
     attributes: {
       titre: string;
       description: string;
@@ -12,27 +13,50 @@ interface FilmDatas {
 }
 
 interface Categories {
-  data: CategoriesDatas[]
-}
-
-interface CategoriesDatas {
   data: {
     attributes: {
+      id: number;
       nom: string;
-      id: number
-    }
+    };
   }
 }
 
 export const EditFilmAction = async ({ request }: { request: Request }) => {
   const formData = await request.formData();
   const formUpload = new FormData();
+  const cover = formData.get("cover") as File;
+  formUpload.append("files", cover);
 
+    const uploadFile = await fetch("http://localhost:1337/api/upload", {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer " + localStorage.getItem("token")
+      },
+      body: formUpload
+    }).then((res) => res.json());
+
+    const data = await fetch(`http://localhost:1337/api/films/${filmId}`, {
+    method: "PUT",
+    headers: {
+      "Authorization": "Bearer " + localStorage.getItem("token"),
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      data: {
+        titre: formData.get("titre"),
+        description: formData.get("description"),
+        duree: formData.get("duree"),
+        dateSortie: formData.get("dateSortie"),
+        cover: uploadFile[0].id,
+      }
+    })
+  })
+  return window.location.href = "/";
 }
 
 const EditFilm = () => {
-  const film = useLoaderData() as { film: FilmDatas, categories: Categories };
-  console.log(film);
+  const film = useLoaderData() as { film: FilmDatas, categories: Categories[] };
+  const filmId = film.film.data.id;
   return (
     <div className="flex justify-center items-center h-full bg-sky-500 pt-4 pb-4">
       <Form
@@ -84,13 +108,13 @@ const EditFilm = () => {
         <label>Categories</label>
         <div className="flex flex-wrap space-x-4">
         {film.categories.data.map((category) => (
-                    <div key={category.data.attributes.id}>
-                        <input type="checkbox" name="categories[]" value={category.data.attributes.id} />
-                        <label htmlFor="categories">{category.data.attributes.nom}</label>
+                    <div key={category.id}>
+                        <input type="checkbox" name="categories[]" value={category.id} />
+                        <label htmlFor="categories">{category.attributes.nom}</label>
                     </div>
                 ))}
         </div>
-        <input type="submit" />
+        <input type="submit"/>
       </Form>
     </div>
   );
